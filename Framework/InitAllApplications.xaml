@@ -101,11 +101,16 @@
       <AssemblyReference>NPOI.Core</AssemblyReference>
       <AssemblyReference>System.Linq.Async</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="727,992" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="727,1168" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dtExcelData" />
+      <Variable x:TypeArguments="x:String" Name="varExcel_File_Path" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -114,7 +119,12 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" />
-    <ui:ReadRange AddHeaders="True" DataTable="[dtExcelData]" DisplayName="Read Range Workbook" sap:VirtualizedContainerService.HintSize="450,227" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="A1" SheetName="Status" WorkbookPath="C:\Users\manish.unnikrishnan\OneDrive - Claysys Technologies Pvt Ltd -1\Documents\UiPath\Dispatcher-HR_Offer_Letter_Generation\Data\Input\CandidateInfo.xlsx" />
+    <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="Candidates_Info_Excel_File_Path" CacheStrategy="None" DisplayName="Get Asset" FolderPath="HR_Offer_Letter_Generation_Project_Folder" sap:VirtualizedContainerService.HintSize="450,176" sap2010:WorkflowViewState.IdRef="GetRobotAsset_1">
+      <ui:GetRobotAsset.Value>
+        <OutArgument x:TypeArguments="x:String">[varExcel_File_Path]</OutArgument>
+      </ui:GetRobotAsset.Value>
+    </ui:GetRobotAsset>
+    <ui:ReadRange AddHeaders="True" DataTable="[dtExcelData]" DisplayName="Read Range Workbook" sap:VirtualizedContainerService.HintSize="450,227" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="A1" SheetName="Status" WorkbookPath="[varExcel_File_Path]" />
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="450,175" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[dtExcelData.Rows.Count.ToString]" />
     <ui:FilterDataTable DataTable="[dtExcelData]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="450,195" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[dtFinalHiredDatas]" SelectColumnsMode="Remove">
       <ui:FilterDataTable.Filters>
