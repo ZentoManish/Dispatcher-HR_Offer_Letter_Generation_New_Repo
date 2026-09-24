@@ -1,0 +1,6 @@
+{
+  "Name": "Dispatcher-HR_Offer_Letter_Generation",
+  "ProjectType": "Process",
+  "Description": "Dispatcher Process for Generating the offer letters for the hired candidates",
+  "MainFile": "Main.xaml"
+}
